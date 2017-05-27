@@ -20,7 +20,7 @@ or:
 docker run --rm  -itd  --name=sni  \
   -p 80:80 \
   -p 443:443  \
-  -v $(pwd)/sniconf:/sniproxy
+  -v $(pwd)/sniconf:/sniproxy \
   neilpang/sni
 
 ```
