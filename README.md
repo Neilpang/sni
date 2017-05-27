@@ -53,6 +53,13 @@ docker exec  sni  addssl  example.com  172.17.0.2 8443
 ```
 
 
+Add  http and ssl both:
+
+```sh
+
+docker exec  sni  add  example.com  172.17.0.2
+
+```
 
 
 
