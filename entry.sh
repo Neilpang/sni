@@ -118,7 +118,7 @@ add() {
 if [ "$1" ]; then
   "$@"
 else
-  service sniproxy start && tail -f /dev/null 
+  sniproxy && tail -f /dev/null 
 fi
 
 
