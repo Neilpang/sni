@@ -14,6 +14,15 @@ else
 fi
 
 
+_restartsni() {
+  _pid=$(cat /var/run/sniproxy.pid)
+  echo "killing $_pid"
+  kill $_pid
+  echo "starting sniproxy"
+  sniproxy && echo ok || echo error
+}
+
+
 # file tag data
 _insert() {
   _file="$1"
@@ -60,7 +69,7 @@ addhttp() {
   if _insert $conf "table http_hosts {" "$_domain $_ip:${_port:-80}"; then
     echo OK
     cp $conf $default_conf
-    service sniproxy restart
+    _restartsni
   else
     echo Error
     return 1
@@ -82,7 +91,7 @@ addssl() {
   if _insert $conf "table https_hosts {" "$_domain $_ip:${_port:-443}"; then
     echo OK
     cp $conf $default_conf
-    service sniproxy restart
+    _restartsni
   else
     echo Error
     return 1
@@ -105,7 +114,7 @@ add() {
   if _insert $conf "table http_hosts {" "$_domain $_ip:${_port:-80}" \
     && _insert $conf "table https_hosts {" "$_domain $_ip:${_port:-443}"; then
     cp $conf $default_conf
-    service sniproxy restart
+    _restartsni
   else
     echo Error
     return 1
