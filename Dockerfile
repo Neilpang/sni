@@ -25,7 +25,7 @@ RUN mkdir -p /root && cd /root \
   && cd sniproxy \
   && ./autogen.sh && dpkg-buildpackage \
   && cd .. \
-  && rm -rf sniproxy \
+  && rm -rf sniproxy
 
 
 
