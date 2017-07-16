@@ -39,13 +39,13 @@ ENV sni_ver=0.5.0
 
 COPY --from=buildsni /root/sniproxy_${sni_ver}_amd64.deb /sniproxy_${sni_ver}_amd64.deb
 
-ADD entry.sh ["/entry.sh"]
+ADD entry.sh /entry.sh
 
 RUN chmod +x /entry.sh && dpkg -i /sniproxy_${sni_ver}_amd64.deb && mkdir -p /sniproxy/
 
 VOLUME /sniproxy/
 
-ENTRYPOINT /entry.sh
+ENTRYPOINT ["/entry.sh"]
 
 RUN for cmd in addhttp addssl add; do echo '#!'"/usr/bin/env sh\n/entry.sh $cmd \"\$@\"" >/bin/$cmd && chmod +x /bin/$cmd;done;
 
